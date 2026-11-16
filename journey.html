@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>MindBudget 使用者旅程地圖</title>
+<meta name="description" content="MindBudget 財務管家：新手、使用者、管理者三種角色的使用路徑。">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --paper: #faf8f2; --surface: #fff; --panel: #e9efe3; --edge: #cfdac4;
+    --forest: #3f5540; --sage: #7d9471; --ink: #38402f; --body: #5d6555; --muted: #8a9280;
+    --gold: #b8862c; --gold-soft: #f6ead0; --mint-soft: #e3f0e6;
+    --radius: 16px; --shadow: 0 1px 2px rgba(56,64,47,.06), 0 4px 16px rgba(56,64,47,.06);
+    --font: -apple-system, 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
+    --serif: 'Noto Serif TC', 'Songti TC', 'PMingLiU', serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); line-height: 1.6; -webkit-text-size-adjust: 100%; }
+  a { color: var(--forest); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px 64px; }
+  header.hero { padding: 40px 0 24px; }
+  .kicker { color: var(--sage); font-weight: 700; letter-spacing: .08em; font-size: .85rem; }
+  h1 { font-family: var(--serif); font-size: clamp(1.7rem, 4.5vw, 2.4rem); margin: 6px 0 10px; letter-spacing: .02em; }
+  .lead { color: var(--body); max-width: 40em; margin: 0 0 18px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-block; text-decoration: none; font-weight: 700; border-radius: 999px; padding: 10px 18px; border: 1px solid var(--forest); }
+  .btn.primary { background: var(--forest); color: #fff; }
+  .btn.ghost { background: transparent; color: var(--forest); }
+  h2 { font-family: var(--serif); font-size: 1.4rem; margin: 40px 0 6px; }
+  .sub { color: var(--muted); margin: 0 0 16px; font-size: .95rem; }
+
+  .lanes { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 880px) { .lanes { grid-template-columns: repeat(3, 1fr); } }
+  .lane { background: var(--surface); border: 1px solid var(--edge); border-radius: var(--radius); box-shadow: var(--shadow); padding: 18px; display: flex; flex-direction: column; }
+  .lane-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+  .lane h3 { margin: 0; font-size: 1.15rem; }
+  .who { color: var(--body); font-size: .9rem; margin: 0 0 14px; }
+  .tag { font-size: .75rem; font-weight: 700; border-radius: 999px; padding: 2px 10px; white-space: nowrap; }
+  .tag.new { background: var(--gold-soft); color: #7a5a17; }
+  .tag.user { background: var(--mint-soft); color: var(--forest); }
+  .tag.admin { background: var(--panel); color: var(--forest); }
+  ol.steps { list-style: none; margin: 0; padding: 0; flex: 1; }
+  ol.steps li { position: relative; padding: 0 0 14px 38px; }
+  ol.steps li::before { content: counter(s); counter-increment: s; position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--forest); color: #fff; font-size: .8rem; font-weight: 700; display: grid; place-items: center; }
+  ol.steps li::after { content: ''; position: absolute; left: 12.5px; top: 28px; bottom: 2px; width: 1px; background: var(--edge); }
+  ol.steps li:last-child::after { display: none; }
+  ol.steps { counter-reset: s; }
+  .st { font-weight: 700; }
+  .sd { color: var(--body); font-size: .9rem; }
+  .lane .btn { margin-top: 6px; align-self: flex-start; padding: 8px 16px; font-size: .9rem; }
+
+  .day { display: grid; gap: 12px; grid-template-columns: 1fr; }
+  @media (min-width: 760px) { .day { grid-template-columns: 1fr 1fr; } }
+  .seg { background: var(--surface); border: 1px solid var(--edge); border-radius: var(--radius); padding: 16px; }
+  .seg h4 { margin: 0 0 6px; font-size: 1rem; }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 6px 0 8px; }
+  .flow span { background: var(--panel); border-radius: 8px; padding: 3px 9px; font-size: .85rem; }
+  .flow i { color: var(--sage); font-style: normal; font-size: .85rem; }
+  .seg p { margin: 0; color: var(--body); font-size: .9rem; }
+
+  table.plan { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--edge); border-radius: var(--radius); overflow: hidden; font-size: .92rem; }
+  .plan th, .plan td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--edge); vertical-align: top; }
+  .plan th { background: var(--panel); font-weight: 700; }
+  .plan tr:last-child td { border-bottom: 0; }
+  .pill { font-size: .75rem; font-weight: 700; border-radius: 999px; padding: 2px 9px; white-space: nowrap; }
+  .pill.ok { background: var(--mint-soft); color: var(--forest); }
+  .pill.wip { background: var(--gold-soft); color: #7a5a17; }
+  .tablewrap { overflow-x: auto; }
+
+  footer { margin-top: 40px; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--edge); padding-top: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">MINDBUDGET 財務管家</div>
+    <h1>使用者旅程地圖</h1>
+    <p class="lead">想花錢之前，先問一聲。這一頁整理三種人打開 MindBudget 會走過的路：剛註冊的新手、每天記帳的使用者，以及負責產品維護的管理者。每一條路都能在體驗版裡實際點一遍。</p>
+    <div class="btns">
+      <a class="btn primary" href="./">打開體驗版</a>
+      <a class="btn ghost" href="#day">看使用者的一天</a>
+    </div>
+  </header>
+
+  <h2>三條路徑</h2>
+  <p class="sub">體驗版裡全是虛構數字，不用登入。按下方按鈕會直接用該角色進入，畫面上方的「導覽」會帶你一步步走。</p>
+  <div class="lanes">
+    <section class="lane" aria-label="新手的路徑">
+      <div class="lane-head"><h3>新手</h3><span class="tag new">第一次打開</span></div>
+      <p class="who">剛註冊、帳本是空的。看系統怎麼一步步引導。</p>
+      <ol class="steps">
+        <li><div class="st">取名</div><div class="sd">先問怎麼稱呼你，按「開始使用」。</div></li>
+        <li><div class="st">六步設定精靈</div><div class="sd">帳本 → 匯入 → 帳戶 → 預算 → 通知 → 開始，每步都能先跳過。</div></li>
+        <li><div class="st">首頁的「待補齊」</div><div class="sd">跳過的事變成首頁一行提醒，點開才看清單。</div></li>
+        <li><div class="st">第一次記帳</div><div class="sd">打一句「午餐 150 現金」就能記；還沒帳戶會先帶你建。</div></li>
+        <li><div class="st">認識管家</div><div class="sd">想買之前先問，例如「週六帶家人吃飯 3,000」，看管家怎麼算。</div></li>
+        <li><div class="st">今天的前進</div><div class="sd">空帳本時說「每一段累積，都從第一筆開始」，記帳後開始顯示進度。</div></li>
+      </ol>
+      <a class="btn ghost" href="./?role=new">用新手身分試</a>
+    </section>
+
+    <section class="lane" aria-label="使用者的路徑">
+      <div class="lane-head"><h3>使用者</h3><span class="tag user">每天打開</span></div>
+      <p class="who">每天記帳的人，帳本裡已有這個月的資料。</p>
+      <ol class="steps">
+        <li><div class="st">今天的前進</div><div class="sd">一打開先看到淨資產累積、目標還差多少到下一個里程碑、預算節奏，都是鼓勵的說法。</div></li>
+        <li><div class="st">今天的狀況</div><div class="sd">本月花了多少、預算剩多少、現在真的能動用的錢、接下來的帳單。</div></li>
+        <li><div class="st">記一筆</div><div class="sd">一句話記帳，先檢查預算再確認；快用完時會溫和提醒。</div></li>
+        <li><div class="st">先問管家</div><div class="sd">花錢前問一聲，再追問「改成下個月呢？」「只花 2,000 呢？」。</div></li>
+        <li><div class="st">預算與現金流</div><div class="sd">每類用了多少；未來 30／90 天哪天現金最低。</div></li>
+        <li><div class="st">資產與投資</div><div class="sd">淨資產可切換家庭／本人／配偶；ETF 目標看進度。</div></li>
+      </ol>
+      <a class="btn ghost" href="./?role=user">用使用者身分試</a>
+    </section>
+
+    <section class="lane" aria-label="管理者的路徑">
+      <div class="lane-head"><h3>管理者</h3><span class="tag admin">產品後台</span></div>
+      <p class="who">產品發佈後負責維護與新增功能的人。只看匿名統計，看不到任何人的帳本。</p>
+      <ol class="steps">
+        <li><div class="st">營運總覽</div><div class="sd">幾個人在用、每天活躍、哪個功能常用、新手卡在哪一步。</div></li>
+        <li><div class="st">使用者與帳號</div><div class="sd">登入失敗、卡在引導的人排最上面，可重寄登入信。</div></li>
+        <li><div class="st">內容與提醒文案</div><div class="sd">首頁提醒逐句可改，會幫忙檢查有沒有讓人有壓力的字眼。</div></li>
+        <li><div class="st">維運</div><div class="sd">版本與發布、功能開關、錯誤紀錄、使用者回饋。</div></li>
+        <li><div class="st">對照使用者畫面</div><div class="sd">切到「使用者」，看提醒在首頁長什麼樣子。</div></li>
+      </ol>
+      <a class="btn ghost" href="./?role=admin">用管理者身分試</a>
+    </section>
+  </div>
+
+  <h2 id="day">使用者的一天</h2>
+  <p class="sub">從打開 App 到睡前，一般使用者最常走的幾段路。</p>
+  <div class="day">
+    <section class="seg">
+      <h4>1. 打開 App，先看整體</h4>
+      <div class="flow"><span>今天的前進</span><i>→</i><span>本月摘要</span><i>→</i><span>預算剩餘</span><i>→</i><span>可動用現金</span><i>→</i><span>記一筆／問管家</span></div>
+      <p>「預算剩餘」是這個月還能花多少；「可動用現金」是帳戶裡現在真的能動的錢，扣掉要保留的和今天要付的。</p>
+    </section>
+    <section class="seg">
+      <h4>2. 記一筆</h4>
+      <div class="flow"><span>一句話或手填</span><i>→</i><span>檢查預算</span><i>→</i><span>確認記下</span></div>
+      <p>預覽時不會寫入任何資料；預算快用完會顯示差額，收入與轉帳直接記。</p>
+    </section>
+    <section class="seg">
+      <h4>3. 花錢前問管家</h4>
+      <div class="flow"><span>輸入想買的</span><i>→</i><span>結論與建議</span><i>→</i><span>可行方案</span><i>→</i><span>追問改條件</span></div>
+      <p>可以直接選「已購買記帳」「先存成計畫」「暫時不買」。追問是固定句型，不是聊天。</p>
+    </section>
+    <section class="seg">
+      <h4>4. 看現金流時間軸</h4>
+      <div class="flow"><span>依日期列出進出</span><i>→</i><span>標出最低點</span><i>→</i><span>問管家怎麼調</span></div>
+      <p>哪一天錢最緊一眼看到，有風險的那天可以直接帶去問管家。</p>
+    </section>
+    <section class="seg">
+      <h4>5. 第一次設定與匯入</h4>
+      <div class="flow"><span>六步精靈</span><i>→</i><span>匯入 Excel 盤點表</span><i>→</i><span>預覽</span><i>→</i><span>勾選確認</span></div>
+      <p>Excel 在手機裡解析、不上傳；重複的資料會擋下來。</p>
+    </section>
+    <section class="seg">
+      <h4>6. 資產、對帳與預算調整</h4>
+      <div class="flow"><span>資產五區塊</span><i>→</i><span>對帳看差額</span><i>→</i><span>預算之間挪額度</span></div>
+      <p>挪預算會先給前後比較；銀行餘額不會因此改變。</p>
+    </section>
+    <section class="seg">
+      <h4>7. 今天的三分鐘（選用）</h4>
+      <div class="flow"><span>首頁收合的小卡</span><i>→</i><span>心情與感恩</span></div>
+      <p>不想要可以在設定裡整個關掉，首頁與提醒都會安靜下來。</p>
+    </section>
+  </div>
+
+  <h2>功能狀態</h2>
+  <p class="sub">哪些已經能在體驗版看到，哪些還在規劃。</p>
+  <div class="tablewrap">
+  <table class="plan">
+    <thead><tr><th>功能</th><th>說明</th><th>狀態</th></tr></thead>
+    <tbody>
+      <tr><td>記帳、預算、先問管家、現金流、資產投資</td><td>主要功能</td><td><span class="pill ok">體驗版可看</span></td></tr>
+      <tr><td>新手引導</td><td>取名、六步精靈、待補齊、第一次記帳</td><td><span class="pill ok">體驗版可看</span></td></tr>
+      <tr><td>今天的前進</td><td>首頁的資產累積、目標里程碑、預算節奏</td><td><span class="pill ok">體驗版可看</span><br><span class="pill wip">正式版規劃中</span></td></tr>
+      <tr><td>釘選目標</td><td>使用者自己挑 1～3 個目標放首頁</td><td><span class="pill wip">規劃中</span></td></tr>
+      <tr><td>營運總覽</td><td>管理者看匿名使用統計（不含金額與帳本）</td><td><span class="pill ok">體驗版可看原型</span><br><span class="pill wip">正式版規劃中</span></td></tr>
+      <tr><td>使用者與帳號、文案、維運</td><td>其他三個後台分頁</td><td><span class="pill ok">體驗版可看原型</span></td></tr>
+      <tr><td>全面登入</td><td>所有人都用帳號登入、資料同步到雲端</td><td><span class="pill wip">規劃中</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <footer>
+    這一頁與體驗版都只用虛構資料，不會登入、不會上傳任何東西。看完有想法，直接截圖告訴 Winnie 就好 🌿
+  </footer>
+</div>
+</body>
+</html>
