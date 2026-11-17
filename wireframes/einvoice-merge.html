@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>載具匯入＋手記合併：畫面選項</title>
+<style>
+  :root { --paper:#faf8f2; --surface:#fff; --panel:#e9efe3; --edge:#cfdac4; --forest:#3f5540; --sage:#7d9471; --ink:#38402f; --body:#5d6555; --muted:#8a9280; --gold:#b8862c; --gold-soft:#f6ead0; --mint-soft:#e3f0e6; --blue-soft:#e4ecf3; --blue:#3d5a73;
+    --font:-apple-system,'PingFang TC','Noto Sans TC','Microsoft JhengHei',system-ui,sans-serif; --serif:'Noto Serif TC','Songti TC',serif; color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--font); line-height:1.5; }
+  .wrap { max-width:1500px; margin:0 auto; padding:28px 20px 60px; }
+  h1 { font-family:var(--serif); font-size:1.6rem; margin:0 0 6px; }
+  .lead { color:var(--body); margin:0 0 22px; max-width:46em; }
+  .grid { display:grid; gap:22px; grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); }
+  .opt h2 { font-size:1.05rem; margin:0 0 4px; }
+  .opt .why { color:var(--body); font-size:.88rem; margin:0 0 10px; min-height:3.9em; }
+  .phone { width:340px; max-width:100%; background:var(--paper); border:8px solid #2f352a; border-radius:34px; padding:14px 12px 18px; min-height:640px; box-shadow:0 6px 24px rgba(0,0,0,.12); }
+  .top { display:flex; justify-content:space-between; align-items:baseline; margin:2px 4px 10px; }
+  .top b { font-family:var(--serif); font-size:1.1rem; }
+  .top span { color:var(--muted); font-size:.8rem; }
+  .sum { background:var(--surface); border:1px solid var(--edge); border-radius:14px; padding:10px 12px; margin-bottom:10px; font-size:.82rem; color:var(--body); }
+  .sum strong { color:var(--ink); font-size:1rem; }
+  .chips { display:flex; gap:6px; margin:0 0 8px; flex-wrap:wrap; }
+  .chip { font-size:.75rem; border:1px solid var(--edge); border-radius:999px; padding:2px 10px; background:var(--surface); color:var(--body); }
+  .chip.on { background:var(--forest); color:#fff; border-color:var(--forest); }
+  .day { font-size:.75rem; color:var(--muted); margin:10px 4px 4px; }
+  .row { background:var(--surface); border:1px solid var(--edge); border-radius:12px; padding:9px 11px; margin-bottom:6px; display:flex; justify-content:space-between; gap:8px; align-items:flex-start; }
+  .row .n { font-size:.9rem; font-weight:600; }
+  .row .m { font-size:.74rem; color:var(--muted); }
+  .amt { font-variant-numeric:tabular-nums; font-weight:700; white-space:nowrap; font-size:.92rem; }
+  .src { display:inline-block; font-size:.68rem; font-weight:700; border-radius:6px; padding:0 6px; margin-right:4px; vertical-align:1px; }
+  .s-hand { background:var(--mint-soft); color:var(--forest); }
+  .s-inv { background:var(--blue-soft); color:var(--blue); }
+  .s-both { background:var(--gold-soft); color:#7a5a17; }
+  .pair { border:1.5px dashed var(--gold); border-radius:14px; padding:8px; margin-bottom:8px; background:#fffdf7; }
+  .pair .h { font-size:.78rem; color:#7a5a17; font-weight:700; margin:0 2px 6px; }
+  .pair .row { margin-bottom:5px; }
+  .btns { display:flex; gap:6px; margin-top:4px; }
+  .b { font:inherit; font-size:.78rem; border-radius:999px; padding:4px 12px; border:1px solid var(--forest); background:var(--surface); color:var(--forest); font-weight:700; }
+  .b.p { background:var(--forest); color:#fff; }
+  .detail { font-size:.74rem; color:var(--body); background:var(--panel); border-radius:8px; padding:6px 8px; margin-top:6px; }
+  .note { font-size:.75rem; color:var(--body); background:var(--gold-soft); border-radius:10px; padding:6px 10px; margin-bottom:8px; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+  .two .hd { font-size:.72rem; font-weight:700; color:var(--muted); text-align:center; }
+  .cell { background:var(--surface); border:1px solid var(--edge); border-radius:10px; padding:6px 7px; font-size:.78rem; min-height:44px; }
+  .cell.empty { background:transparent; border-style:dashed; color:var(--muted); display:grid; place-items:center; }
+  .cell.match { border-color:var(--sage); }
+  .link { text-align:center; font-size:.7rem; color:var(--sage); grid-column:1 / -1; margin:-2px 0 2px; }
+  .pick { margin-top:10px; font-size:.82rem; color:var(--body); }
+  .pick b { color:var(--forest); }
+</style>
+</head>
+<body>
+<p style="max-width:1080px;margin:16px auto 0;padding:0 20px"><a href="../wireframes.html" style="color:#3f5540;font-weight:700">← 回線框稿總覽</a>　<span style="color:#8a9280">Owner 11-16 已選 A「並排提醒，我決定」</span></p>
+<div class="wrap">
+  <h1>載具匯入＋手記合併：畫面選項</h1>
+  <p class="lead">情境（全是假資料）：11 月 15 日你自己記了「午餐 150」，同一天手機載具也匯入一張 150 元的發票，兩筆很可能是同一筆。下面四種畫面處理方式不同，挑一個最順手的就好。</p>
+
+  <div class="grid">
+
+    <!-- A -->
+    <section class="opt">
+      <h2>A｜並排提醒，你決定（建議）</h2>
+      <p class="why">清單一起看、標來源；疑似同一筆的兩筆框在一起，由你按「合成一筆」或「兩筆都留」。不會自己動你的帳。</p>
+      <div class="phone">
+        <div class="top"><b>11 月 飲食</b><span>收支表 › 明細</span></div>
+        <div class="sum">這個月飲食 <strong>8,420 元</strong>　手記 12 筆・載具 9 筆</div>
+        <div class="chips"><span class="chip on">全部</span><span class="chip">手記</span><span class="chip">載具</span><span class="chip">待確認 1</span></div>
+        <div class="day">11/15（六）</div>
+        <div class="pair">
+          <div class="h">這兩筆可能是同一筆</div>
+          <div class="row"><div><div class="n"><span class="src s-hand">手記</span>午餐</div><div class="m">現金・12:40</div></div><div class="amt">150</div></div>
+          <div class="row"><div><div class="n"><span class="src s-inv">載具</span>好食便當店</div><div class="m">發票 AB-1234…・排骨便當、紅茶</div></div><div class="amt">150</div></div>
+          <div class="btns"><button class="b p">合成一筆</button><button class="b">兩筆都留</button></div>
+        </div>
+        <div class="row"><div><div class="n"><span class="src s-inv">載具</span>全聯福利中心</div><div class="m">發票 CD-5678…・鮮奶、吐司 等 4 項</div></div><div class="amt">326</div></div>
+        <div class="day">11/14（五）</div>
+        <div class="row"><div><div class="n"><span class="src s-hand">手記</span>晚餐 家人聚餐</div><div class="m">信用卡</div></div><div class="amt">1,280</div></div>
+        <div class="row"><div><div class="n"><span class="src s-inv">載具</span>7-ELEVEN</div><div class="m">發票 EF-9012…・咖啡</div></div><div class="amt">55</div></div>
+      </div>
+      <p class="pick">適合：<b>想自己掌握每一筆</b>的人。</p>
+    </section>
+
+    <!-- B -->
+    <section class="opt">
+      <h2>B｜自動合成一筆</h2>
+      <p class="why">同一天、同金額就自動合成一筆：保留你記的分類和備註，補上發票號碼與品項。上方說明自動合了幾筆，點開可以拆回兩筆。</p>
+      <div class="phone">
+        <div class="top"><b>11 月 飲食</b><span>收支表 › 明細</span></div>
+        <div class="sum">這個月飲食 <strong>8,420 元</strong>　共 20 筆</div>
+        <div class="note">這次匯入自動合成 1 筆（同一天、同金額），點開那一筆可以拆開。</div>
+        <div class="day">11/15（六）</div>
+        <div class="row" style="display:block"><div style="display:flex;justify-content:space-between"><div><div class="n"><span class="src s-both">手記＋載具</span>午餐</div><div class="m">現金・12:40</div></div><div class="amt">150</div></div>
+          <div class="detail">發票 AB-1234…　好食便當店<br>排骨便當 120・紅茶 30　<u>拆回兩筆</u></div></div>
+        <div class="row"><div><div class="n"><span class="src s-inv">載具</span>全聯福利中心</div><div class="m">發票 CD-5678…・鮮奶、吐司 等 4 項</div></div><div class="amt">326</div></div>
+        <div class="day">11/14（五）</div>
+        <div class="row"><div><div class="n"><span class="src s-hand">手記</span>晚餐 家人聚餐</div><div class="m">信用卡</div></div><div class="amt">1,280</div></div>
+        <div class="row"><div><div class="n"><span class="src s-inv">載具</span>7-ELEVEN</div><div class="m">發票 EF-9012…・咖啡</div></div><div class="amt">55</div></div>
+      </div>
+      <p class="pick">適合：<b>想最省事</b>的人。代價：偶爾真的是兩筆（例如同一天買兩次 150）會被合錯，要自己拆。</p>
+    </section>
+
+    <!-- C -->
+    <section class="opt">
+      <h2>C｜只放在一起看</h2>
+      <p class="why">手記和載具在同一張清單、標來源，可以用上方按鈕只看其中一種。不處理重複，重複的話自己刪一筆。</p>
+      <div class="phone">
+        <div class="top"><b>11 月 飲食</b><span>收支表 › 明細</span></div>
+        <div class="sum">這個月飲食 <strong>8,570 元</strong>　手記 12 筆・載具 9 筆</div>
+        <div class="chips"><span class="chip on">全部</span><span class="chip">手記</span><span class="chip">載具</span></div>
+        <div class="day">11/15（六）</div>
+        <div class="row"><div><div class="n"><span class="src s-hand">手記</span>午餐</div><div class="m">現金・12:40</div></div><div class="amt">150</div></div>
+        <div class="row"><div><div class="n"><span class="src s-inv">載具</span>好食便當店</div><div class="m">發票 AB-1234…・排骨便當、紅茶</div></div><div class="amt">150</div></div>
+        <div class="row"><div><div class="n"><span class="src s-inv">載具</span>全聯福利中心</div><div class="m">發票 CD-5678…・鮮奶、吐司 等 4 項</div></div><div class="amt">326</div></div>
+        <div class="day">11/14（五）</div>
+        <div class="row"><div><div class="n"><span class="src s-hand">手記</span>晚餐 家人聚餐</div><div class="m">信用卡</div></div><div class="amt">1,280</div></div>
+        <div class="row"><div><div class="n"><span class="src s-inv">載具</span>7-ELEVEN</div><div class="m">發票 EF-9012…・咖啡</div></div><div class="amt">55</div></div>
+      </div>
+      <p class="pick">適合：最簡單。代價：<b>重複那筆會被算兩次</b>（上面合計多了 150），收支表會不準。</p>
+    </section>
+
+    <!-- D -->
+    <section class="opt">
+      <h2>D｜左右對照（對帳式）</h2>
+      <p class="why">左邊你記的、右邊載具的，同一筆對在同一列；只有一邊有的就空著。一眼看出「漏記了什麼」「哪些沒發票」。</p>
+      <div class="phone">
+        <div class="top"><b>11 月 飲食</b><span>收支表 › 對照</span></div>
+        <div class="sum">對上 7 筆・只有手記 5 筆・只有載具 2 筆</div>
+        <div class="day">11/15（六）</div>
+        <div class="two">
+          <div class="hd">我記的</div><div class="hd">載具發票</div>
+          <div class="cell match"><b>午餐</b><br>150・現金</div><div class="cell match"><b>好食便當店</b><br>150・2 項</div>
+          <div class="link">✓ 對上了</div>
+          <div class="cell empty">沒記到</div><div class="cell"><b>全聯福利中心</b><br>326・4 項<br><span class="src s-inv" style="margin-top:3px">補記這筆</span></div>
+        </div>
+        <div class="day">11/14（五）</div>
+        <div class="two">
+          <div class="cell"><b>晚餐 家人聚餐</b><br>1,280・信用卡</div><div class="cell empty">沒有發票</div>
+          <div class="cell empty">沒記到</div><div class="cell"><b>7-ELEVEN</b><br>55・咖啡<br><span class="src s-inv" style="margin-top:3px">補記這筆</span></div>
+        </div>
+      </div>
+      <p class="pick">適合：<b>想定期對帳、抓漏記</b>的人。代價：畫面比較擠，手機上一列只放得下簡短資訊。</p>
+    </section>
+
+  </div>
+</div>
+</body>
+</html>

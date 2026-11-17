@@ -4,6 +4,8 @@
 
 🗺️ **使用者旅程地圖（給同仁先看路徑）：https://ws19135.github.io/mindbudget-demo/journey.html**
 
+🖼️ **線框稿與畫面（給同仁確認）：https://ws19135.github.io/mindbudget-demo/wireframes.html**
+
 想花錢之前，先問一聲。MindBudget 是一個手機記帳＋預算＋「先問管家」的財務小幫手。
 這個體驗版給朋友試用：**不用登入、不連雲端，裡面全是虛構數字。**
 

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>MindBudget 線框稿與畫面</title>
+<meta name="description" content="MindBudget 財務管家：正式版畫面、新需求線框稿、體驗版原型截圖，給同仁確認用。">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<style>
+  :root {
+    --paper: #faf8f2; --surface: #fff; --panel: #e9efe3; --edge: #cfdac4;
+    --forest: #3f5540; --sage: #7d9471; --ink: #38402f; --body: #5d6555; --muted: #8a9280;
+    --gold: #b8862c; --gold-soft: #f6ead0; --mint-soft: #e3f0e6;
+    --radius: 16px; --shadow: 0 1px 2px rgba(56,64,47,.06), 0 4px 16px rgba(56,64,47,.06);
+    --font: -apple-system, 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', system-ui, sans-serif;
+    --serif: 'Noto Serif TC', 'Songti TC', 'PMingLiU', serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font); line-height: 1.6; -webkit-text-size-adjust: 100%; }
+  a { color: var(--forest); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px 64px; }
+  header.hero { padding: 40px 0 16px; }
+  .kicker { color: var(--sage); font-weight: 700; letter-spacing: .08em; font-size: .85rem; }
+  h1 { font-family: var(--serif); font-size: clamp(1.7rem, 4.5vw, 2.4rem); margin: 6px 0 10px; letter-spacing: .02em; }
+  .lead { color: var(--body); max-width: 40em; margin: 0 0 18px; }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-block; text-decoration: none; font-weight: 700; border-radius: 999px; padding: 10px 18px; border: 1px solid var(--forest); }
+  .btn.primary { background: var(--forest); color: #fff; }
+  .btn.ghost { background: transparent; color: var(--forest); }
+  nav.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; }
+  nav.toc a { text-decoration: none; background: var(--panel); border-radius: 999px; padding: 6px 14px; font-size: .9rem; font-weight: 600; }
+  h2 { font-family: var(--serif); font-size: 1.4rem; margin: 44px 0 6px; scroll-margin-top: 16px; }
+  .sub { color: var(--muted); margin: 0 0 16px; font-size: .95rem; }
+  .tag { display: inline-block; font-size: .78rem; font-weight: 700; border-radius: 999px; padding: 2px 10px; margin-left: 6px; vertical-align: middle; font-family: var(--font); }
+  .tag.ok { background: var(--mint-soft); color: var(--forest); }
+  .tag.wait { background: var(--gold-soft); color: #7a5a1c; }
+  .tag.proto { background: var(--panel); color: var(--body); }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .grid.wide { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  figure { margin: 0; background: var(--surface); border: 1px solid var(--edge); border-radius: var(--radius); box-shadow: var(--shadow); padding: 10px; display: flex; flex-direction: column; }
+  figure a.shot { display: block; border-radius: 10px; overflow: hidden; background: var(--panel); }
+  figure img { display: block; width: 100%; height: auto; }
+  figcaption { padding: 10px 4px 2px; font-size: .92rem; }
+  figcaption strong { display: block; color: var(--ink); }
+  figcaption span { color: var(--muted); font-size: .85rem; }
+  .card-link { display: block; text-decoration: none; background: var(--surface); border: 1px solid var(--edge); border-radius: var(--radius); box-shadow: var(--shadow); padding: 20px; }
+  .card-link strong { font-size: 1.1rem; color: var(--ink); }
+  .card-link p { color: var(--body); margin: 6px 0 10px; }
+  .card-link .go { font-weight: 700; color: var(--forest); }
+  footer { margin-top: 48px; color: var(--muted); font-size: .85rem; border-top: 1px solid var(--edge); padding-top: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="kicker">MINDBUDGET 財務管家</div>
+    <h1>線框稿與畫面</h1>
+    <p class="lead">把目前做好的畫面、新需求的線框稿和體驗版截圖放在一起，方便大家對照確認。點任何一張圖可以開大圖。裡面全是虛構數字或空帳本。</p>
+    <div class="btns">
+      <a class="btn primary" href="./">打開體驗版</a>
+      <a class="btn ghost" href="./journey.html">看使用者旅程地圖</a>
+    </div>
+    <nav class="toc" aria-label="本頁目錄">
+      <a href="#m7">① 正式版 M7 畫面</a>
+      <a href="#merge">② 新需求：載具＋手記合併</a>
+      <a href="#proto">③ 今天的前進與後台原型</a>
+      <a href="#flow">④ 體驗版三種角色</a>
+    </nav>
+  </header>
+
+  <h2 id="m7">① 正式版 M7 畫面 <span class="tag ok">已開發，待上線</span></h2>
+  <p class="sub">正式 App 的新畫面（手機寬度，空帳本）。程式已寫好、測試全過，還沒發布到正式網站。</p>
+  <div class="grid">
+    <figure>
+      <a class="shot" href="./wireframes/m7-home.jpg"><img src="./wireframes/m7-home.jpg" alt="首頁：今天的前進卡片，空帳本時鼓勵記第一筆或設一個目標" width="400" height="723" loading="lazy"></a>
+      <figcaption><strong>首頁「今天的前進」</strong><span>空帳本時：記第一筆／設一個目標</span></figcaption>
+    </figure>
+    <figure>
+      <a class="shot" href="./wireframes/m7-privacy-1.jpg"><img src="./wireframes/m7-privacy-1.jpg" alt="更多頁的隱私與統計說明，上半段" width="400" height="723" loading="lazy"></a>
+      <figcaption><strong>更多 → 隱私與統計（上）</strong><span>會送出什麼、不會送出什麼</span></figcaption>
+    </figure>
+    <figure>
+      <a class="shot" href="./wireframes/m7-privacy-2.jpg"><img src="./wireframes/m7-privacy-2.jpg" alt="更多頁的隱私與統計說明，下半段與開關" width="400" height="723" loading="lazy"></a>
+      <figcaption><strong>更多 → 隱私與統計（下）</strong><span>存在哪裡、怎麼關；分享開關</span></figcaption>
+    </figure>
+  </div>
+
+  <h2 id="merge">② 新需求：載具＋手記合併 <span class="tag wait">規格確認中</span></h2>
+  <p class="sub">個人簡化三表（FR-85）：手機載具發票匯入後，和自己記的帳放在同一張明細。四種畫面選項，已選 A。</p>
+  <a class="card-link" href="./wireframes/einvoice-merge.html">
+    <strong>載具匯入＋手記合併：四種畫面選項</strong>
+    <p>A 並排提醒、我決定（已選）／B 自動合成一筆／C 只放在一起看／D 左右對照（對帳式）。疑似同一筆的兩筆並排，由你決定要不要合成。</p>
+    <span class="go">打開線框稿 →</span>
+  </a>
+
+  <h2 id="proto">③ 今天的前進與後台原型 <span class="tag proto">體驗版原型</span></h2>
+  <p class="sub">體驗版裡的原型畫面。正式版先做「今天的前進」和「營運總覽」，其餘後台分頁仍是原型。</p>
+  <div class="grid">
+    <figure>
+      <a class="shot" href="./wireframes/proto-01.jpg"><img src="./wireframes/proto-01.jpg" alt="使用者首頁的今天的前進，有資產累積、目標與預算節奏" width="750" height="1624" loading="lazy"></a>
+      <figcaption><strong>使用者首頁：今天的前進</strong><span>資產累積、目標里程碑、預算節奏</span></figcaption>
+    </figure>
+    <figure>
+      <a class="shot" href="./wireframes/proto-02.jpg"><img src="./wireframes/proto-02.jpg" alt="新手空帳本的今天的前進" width="375" height="812" loading="lazy"></a>
+      <figcaption><strong>新手空帳本</strong><span>從第一筆開始</span></figcaption>
+    </figure>
+    <figure>
+      <a class="shot" href="./wireframes/proto-04.jpg"><img src="./wireframes/proto-04.jpg" alt="後台營運總覽手機版" width="750" height="1624" loading="lazy"></a>
+      <figcaption><strong>後台：營運總覽（手機）</strong><span>使用人數、活躍、功能使用率、新手漏斗</span></figcaption>
+    </figure>
+    <figure>
+      <a class="shot" href="./wireframes/proto-05.jpg"><img src="./wireframes/proto-05.jpg" alt="後台使用者與帳號" width="750" height="1624" loading="lazy"></a>
+      <figcaption><strong>後台：使用者與帳號</strong><span>Email 遮罩、看不到帳本內容</span></figcaption>
+    </figure>
+    <figure>
+      <a class="shot" href="./wireframes/proto-06.jpg"><img src="./wireframes/proto-06.jpg" alt="後台文案語氣檢查" width="375" height="812" loading="lazy"></a>
+      <figcaption><strong>後台：文案語氣檢查</strong><span>提醒壓力字眼</span></figcaption>
+    </figure>
+    <figure>
+      <a class="shot" href="./wireframes/proto-07.jpg"><img src="./wireframes/proto-07.jpg" alt="後台維運版本與功能開關" width="375" height="812" loading="lazy"></a>
+      <figcaption><strong>後台：版本與開關</strong><span>發布、功能開放比例</span></figcaption>
+    </figure>
+    <figure>
+      <a class="shot" href="./wireframes/proto-08.jpg"><img src="./wireframes/proto-08.jpg" alt="後台維運錯誤紀錄與使用者回饋" width="375" height="812" loading="lazy"></a>
+      <figcaption><strong>後台：錯誤與回饋</strong><span>錯誤紀錄、使用者回饋</span></figcaption>
+    </figure>
+  </div>
+  <div class="grid wide" style="margin-top:16px">
+    <figure>
+      <a class="shot" href="./wireframes/proto-03.jpg"><img src="./wireframes/proto-03.jpg" alt="後台營運總覽桌機版" width="560" height="426" loading="lazy"></a>
+      <figcaption><strong>後台：營運總覽（桌機）</strong><span>管理者用電腦看的版面</span></figcaption>
+    </figure>
+  </div>
+
+  <h2 id="flow">④ 體驗版三種角色 <span class="tag proto">體驗版</span></h2>
+  <p class="sub">打開體驗版後，選管理者／使用者／新手看到的主要畫面。</p>
+  <div class="grid">
+    <figure><a class="shot" href="./wireframes/flow-01.jpg"><img src="./wireframes/flow-01.jpg" alt="入口選角色" width="375" height="812" loading="lazy"></a><figcaption><strong>入口：選角色</strong></figcaption></figure>
+    <figure><a class="shot" href="./wireframes/flow-02.jpg"><img src="./wireframes/flow-02.jpg" alt="使用者導覽" width="750" height="1624" loading="lazy"></a><figcaption><strong>使用者導覽</strong></figcaption></figure>
+    <figure><a class="shot" href="./wireframes/flow-03.jpg"><img src="./wireframes/flow-03.jpg" alt="使用者首頁" width="375" height="812" loading="lazy"></a><figcaption><strong>使用者首頁</strong></figcaption></figure>
+    <figure><a class="shot" href="./wireframes/flow-04.jpg"><img src="./wireframes/flow-04.jpg" alt="記一筆時的預算提醒" width="375" height="812" loading="lazy"></a><figcaption><strong>記一筆：預算提醒</strong></figcaption></figure>
+    <figure><a class="shot" href="./wireframes/flow-05.jpg"><img src="./wireframes/flow-05.jpg" alt="先問管家的結果" width="188" height="407" loading="lazy"></a><figcaption><strong>先問管家：結果</strong></figcaption></figure>
+    <figure><a class="shot" href="./wireframes/flow-06.jpg"><img src="./wireframes/flow-06.jpg" alt="新手導覽" width="375" height="812" loading="lazy"></a><figcaption><strong>新手導覽</strong></figcaption></figure>
+    <figure><a class="shot" href="./wireframes/flow-07.jpg"><img src="./wireframes/flow-07.jpg" alt="新手設定精靈" width="188" height="407" loading="lazy"></a><figcaption><strong>新手設定精靈</strong></figcaption></figure>
+    <figure><a class="shot" href="./wireframes/flow-08.jpg"><img src="./wireframes/flow-08.jpg" alt="新手空帳本首頁" width="188" height="407" loading="lazy"></a><figcaption><strong>新手空帳本首頁</strong></figcaption></figure>
+  </div>
+  <div class="grid wide" style="margin-top:16px">
+    <figure><a class="shot" href="./wireframes/flow-09.jpg"><img src="./wireframes/flow-09.jpg" alt="管理者導覽桌機版" width="480" height="365" loading="lazy"></a><figcaption><strong>管理者導覽（桌機）</strong></figcaption></figure>
+  </div>
+
+  <footer>更新：2026-11-17｜畫面中的數字皆為虛構或空帳本，不含任何真實財務資料。</footer>
+</div>
+</body>
+</html>
